@@ -30,12 +30,12 @@ This project consists of a Flask backend and an Angular frontend for a realtime 
         cd project/client/chat-app
     ```
 
-2. **Install dependencies**
+2. **Install dependencies (node version 16.14.2)**
     ```
-        npm install
+        npm install 
     ```
 
 3. **Run Flask App**
     ```
-        ng serve
+        ng serve or npm start
     ```
