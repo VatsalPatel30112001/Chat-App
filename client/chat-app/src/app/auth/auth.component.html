@@ -1,0 +1,40 @@
+<div class="centered-container">
+    <div class="auth-form">
+        <h2>{{ isLogin ? 'Login' : 'Sign Up' }}</h2>
+
+        <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Username" required [(ngModel)]="username"
+                    #usernameInput="ngModel">
+                <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error-msg">
+                    Username is required.
+                </div>
+            </div>
+
+            <div class="input-group" *ngIf="!isLogin">
+                <input type="email" id="email" name="email" placeholder="Email" required [(ngModel)]="email"
+                    #emailInput="ngModel">
+                <div *ngIf="emailInput.invalid && emailInput.touched" class="error-msg">
+                    A valid email is required.
+                </div>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Password" required
+                    [(ngModel)]="password" #passwordInput="ngModel">
+                <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-msg">
+                    Password is required.
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn"
+                [disabled]="authForm.invalid">{{ isLogin ? 'Login' : 'Sign Up' }}</button>
+        </form>
+
+        <div class="toggle-section">
+            <button (click)="toggle()">
+                {{ isLogin ? 'Don’t have an account? Sign Up' : 'Already have an account? Login' }}
+            </button>
+        </div>
+    </div>
+</div>

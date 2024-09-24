@@ -1,0 +1,84 @@
+.centered-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.auth-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fafafa;
+    transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #3c8dbc;
+}
+
+.submit-btn {
+    background-color: #3c8dbc;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background-color: #367fa9;
+}
+
+.submit-btn:disabled {
+    background-color: #d3d3d3;
+    cursor: not-allowed;
+}
+
+.toggle-section button {
+    background: none;
+    border: none;
+    color: #3c8dbc;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: color 0.3s;
+}
+
+.toggle-section button:hover {
+    color: #367fa9;
+}
+
+.error-msg {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}

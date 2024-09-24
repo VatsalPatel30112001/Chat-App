@@ -1,0 +1,76 @@
+<app-alert class="alert" [message]="alertMessage" [type]="alertType" [isVisible]="alertVisible" (hideAlert)="closeEvent($event)"></app-alert>
+
+<div class="chat-container">
+    <div class="chat-list">
+        <h3>Personal Chats</h3>
+        <div *ngFor="let chat of personalChats" (click)="selectChat(chat)">
+            <p>{{ chat.user_name }}</p>
+        </div>
+
+        <h3 style="margin-top: 1rem;">Group Chats</h3>
+        <button *ngIf="!createNewGroup" (click)="createNewGroup=true" style="margin-bottom: 5px;">Create Group</button>
+        <div style="background-color: inherit;" *ngIf="createNewGroup">
+            <input type="text" placeholder="Enter Group Name" [(ngModel)]="newGroupName">
+            <button style="margin-bottom: 10px;" [disabled]="newGroupName==''" (click)="createGroup()">Create</button>
+            <button (click)="createNewGroup=false">Cancle</button>
+        </div>
+        <div *ngFor="let group of groupChats" (click)="selectChat(group)">
+            <p>{{ group.group_name }}</p>
+        </div>
+
+        <button (click)="logOut()">Log Out</button>
+    </div>
+
+    <div class="chat-window" *ngIf="selectedChat; else elseBlock">
+        <h4>{{ userName!="" ? userName : groupName }}</h4>
+        <div class="join-div" *ngIf="join; else Else">
+            <button (click)="joinGroup()">Join Group</button>
+        </div>
+        <ng-template #Else>
+            <div #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages" [ngClass]="{'center-vertical-horizontal':messages.length==0}">
+                <div class="dummy-message" *ngIf="messages.length==0; else elseB">
+                    <p>start conversation</p>
+                </div>
+                <ng-template #elseB>
+                    <div *ngFor="let message of messages"
+                        [ngClass]="{'sent': message.sender_id == userId, 'received': message.sender_id != userId}">
+                        <span *ngIf="message.sender_id != userId">{{ message.sender_name }}</span>
+                    
+                        <ng-container *ngIf="message.is_file; else textMessage">
+                            <div class="file-message">
+                                <i class="fa fa-file" aria-hidden="true"></i>
+                                <span class="file-name">{{ message.content }}</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#3c8dbc" class="bi bi-download"
+                                    viewBox="0 0 16 16" style="margin-left: 10px; cursor: pointer; transition: color 0.3s;"
+                                    (click)="downloadFile(message.file_path, message.content)">
+                                    <path fill-rule="evenodd"
+                                        d="M.5 9.5a.5.5 0 0 1 .5-.5h5v-5a.5.5 0 0 1 1 0v5h5a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-6zM5.5 8.5h5.5l-2.75 2.75a.5.5 0 0 1-.707 0l-2.75-2.75z" />
+                                </svg>
+                            </div>
+                        </ng-container>
+                    
+                        <ng-template #textMessage>
+                            <p (click)="downloadFile(message.file_path, message.content)">
+                                {{ message.content }}
+                            </p>
+                        </ng-template>
+                    </div>
+                </ng-template>
+            </div>
+
+            <div class="message-input">
+                <input type="file" (change)="onFileSelected($event)" [disabled]="newMessage" accept="*" #fileInput
+                    style="display: none;" /> 
+                <button (click)="fileInput.click()">Select File</button>
+                <textarea [(ngModel)]="newMessage" placeholder="Type your message..." [disabled]="isFileSelected"></textarea>
+                <button (click)="sendMessage()">Send</button>
+            </div>
+        </ng-template>
+    </div>
+
+    <ng-template #elseBlock>
+        <div class="dummy-message">
+            <p>Select a user or group from the list on the left to start a conversation.</p>
+        </div>
+    </ng-template>
+</div>
