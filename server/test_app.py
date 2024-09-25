@@ -9,7 +9,7 @@ from app import app as flask_app
 
 @pytest.fixture
 def app():
-    flask_app.config.from_object('config.Config')
+    flask_app.config.from_object('config.TestConfig')
     with flask_app.app_context():
         db.create_all() 
         yield flask_app
